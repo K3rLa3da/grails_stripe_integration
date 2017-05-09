@@ -7,6 +7,8 @@ class PricingPlan {
     String pricingStripeId
 
     static constraints = {
+        title nullable: true
+        price nullable: true
         pricingStripeId nullable: true
     }
 
@@ -16,5 +18,11 @@ class PricingPlan {
 
     enum pricingStripeIds {
         Trial, Silver, Gold
+    }
+    static mapping = {
+        table 'pricingPlan'
+        version false
+        id column: 'id'
+        title column: 'title'
     }
 }

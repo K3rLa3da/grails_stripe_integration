@@ -20,7 +20,7 @@ class BootStrap {
         User admin = User.findByUsername('admin@matus.com') ?: new User(username: 'admin@matus.com', password: '!2Qwerty',
                 enabled: true, accountLocked: false, accountExpired: false).save(failOnError: true, flush: true)
         if (!admin?.customer) {
-            new Customer(user: admin).save(failOnError: true, flush: true)
+            new Customer(user: admin, status: Customer.Status.ACTIVE.name()).save(failOnError: true, flush: true)
         }
         if (!UserRole.findByUserAndRole(admin, roleSystemAdmin)) {
             UserRole.create(admin, roleSystemAdmin)
@@ -32,9 +32,6 @@ class BootStrap {
                 new PricingPlan(it).save(flush: true, failOnError: true)
             }
         }
-        println User.count()
-        println UserRole.count()
-        println Role.count()
     }
 
     def destroy = {
